@@ -65,13 +65,15 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir} className={`${inter.variable} ${notoKufi.variable} ${playfair.variable}`}>
-      <body className={`bg-[#F0F2F5] text-[#1F2937] min-h-screen flex flex-col antialiased ${locale === 'ar' ? 'font-arabic' : 'font-sans'}`}>
+      <body className={`bg-purple-50 text-[#1F2937] min-h-screen flex flex-col antialiased ${locale === 'ar' ? 'font-arabic' : 'font-sans'}`}>
         <NextIntlClientProvider messages={messages}>
-          <Navbar locale={locale} />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer locale={locale} />
+          <div className="max-w-[1440px] mx-auto min-h-screen bg-[#F0F2F5] shadow-2xl overflow-hidden flex flex-col relative w-full">
+            <Navbar locale={locale} />
+            <main className="flex-grow flex flex-col">
+              {children}
+            </main>
+            <Footer locale={locale} />
+          </div>
           <Toaster position="bottom-right" richColors />
         </NextIntlClientProvider>
       </body>

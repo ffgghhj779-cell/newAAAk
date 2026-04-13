@@ -64,7 +64,7 @@ export function Navbar({locale}: {locale: string}) {
   const userInitial = user?.user_metadata?.full_name?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || 'U';
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 transition-all duration-300 shadow-sm">
+    <nav className={`sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'shadow-md border-b-transparent' : 'border-b border-gray-200'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
