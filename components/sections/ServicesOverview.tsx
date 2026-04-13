@@ -29,10 +29,10 @@ export function ServicesOverview({locale}: {locale: string}) {
   ];
 
   return (
-    <section className="bg-[#FAF9F6] py-20 border-b border-gray-200">
+    <section className="bg-[#FAF9F6] py-12 md:py-20 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight">
+        <div className="mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 tracking-tight">
             {isAr ? 'الخدمات الاستراتيجية' : 'Strategic Services'}
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl">
@@ -44,7 +44,7 @@ export function ServicesOverview({locale}: {locale: string}) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((svc, idx) => (
-            <div key={idx} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+            <div key={idx} className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-16 h-16 bg-purple-50 rounded-xl flex items-center justify-center mb-6">
                 {svc.icon}
               </div>

@@ -12,11 +12,11 @@ export function FeaturedVisas({locale, visas}: {locale: string, visas: Visa[]}) 
   if (featured.length === 0) return null;
 
   return (
-    <section className="bg-white py-20 border-b border-gray-200">
+    <section className="bg-white py-12 md:py-20 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-12 gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2 tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight">
               {isAr ? 'برامج التأشيرات المميزة' : 'Featured Visa Programs'}
             </h2>
             <p className="text-gray-500">

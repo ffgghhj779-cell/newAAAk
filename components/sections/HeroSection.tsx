@@ -15,7 +15,7 @@ export function HeroSection({locale}: {locale: string}) {
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.015] mix-blend-multiply pointer-events-none" />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-50 to-transparent opacity-60 pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20 lg:pt-28 lg:pb-28 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-28 lg:pb-28 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           <motion.div 
@@ -28,7 +28,7 @@ export function HeroSection({locale}: {locale: string}) {
               <span>{isAr ? 'منصة التأشيرات الحكومية والاستثمارية' : 'Government & Investment Visa Platform'}</span>
             </div>
             
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.2] lg:leading-[1.1] mb-6 tracking-tight">
               {isAr ? 'بوابتك السيادية نحو ' : 'Your Sovereign Gateway to '}
               <span className="text-purple-700">{isAr ? 'العالم' : 'The World'}</span>
             </h1>
@@ -42,14 +42,14 @@ export function HeroSection({locale}: {locale: string}) {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link 
                 href="/visas" 
-                className="inline-flex justify-center items-center h-14 px-8 rounded-xl bg-purple-700 text-white font-medium hover:bg-purple-800 transition-colors shadow-sm"
+                className="w-full sm:w-auto inline-flex justify-center items-center h-14 px-8 rounded-xl bg-purple-700 text-white font-medium hover:bg-purple-800 transition-colors shadow-sm"
               >
                 {isAr ? 'ابدأ طلبك الآن' : 'Start Your Application'}
                 {isAr ? <ArrowLeft className="mr-2 w-5 h-5" /> : <ArrowRight className="ml-2 w-5 h-5" />}
               </Link>
               <Link 
                 href="/categories" 
-                className="inline-flex justify-center items-center h-14 px-8 rounded-xl bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors shadow-sm"
+                className="w-full sm:w-auto inline-flex justify-center items-center h-14 px-8 rounded-xl bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors shadow-sm"
               >
                 {isAr ? 'تصفح البرامج' : 'Explore Programs'}
               </Link>

@@ -70,7 +70,7 @@ export function Navbar({locale}: {locale: string}) {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-12 h-12 relative flex items-center justify-center">
+              <div className="w-10 h-10 md:w-12 md:h-12 relative flex items-center justify-center">
                 <Image 
                   src="/mylogo.png" 
                   alt="Sovereign Ma'arij Fund Logo" 
@@ -78,7 +78,7 @@ export function Navbar({locale}: {locale: string}) {
                   className="object-contain"
                 />
               </div>
-              <span className="font-bold text-xl text-[#1F2937]">
+              <span className="font-bold text-lg md:text-xl text-[#1F2937]">
                 {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Maareg Fund"}
               </span>
             </Link>

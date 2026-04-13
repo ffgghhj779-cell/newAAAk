@@ -7,12 +7,12 @@ export function CTASection({locale}: {locale: string}) {
   const isAr = locale === 'ar';
 
   return (
-    <section className="bg-purple-900 py-24 relative overflow-hidden">
+    <section className="bg-purple-900 py-16 md:py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-multiply pointer-events-none" />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-800 to-transparent opacity-80 pointer-events-none" />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
           {isAr ? 'جاهز لتأمين مستقبلك العالمي؟' : 'Ready to secure your global future?'}
         </h2>
         <p className="text-xl text-purple-200 mb-10 max-w-2xl mx-auto">
