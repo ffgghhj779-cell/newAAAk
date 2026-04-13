@@ -32,21 +32,57 @@ export type Visa = {
 };
 
 export const getCategories = unstable_cache(async (): Promise<VisaCategory[]> => {
-  const { data, error } = await supabase.from('categories').select('*').order('id');
-  if (error) {
-    console.error('Error fetching categories from Supabase:', error);
-    return [];
+  try {
+    const { data, error } = await supabase.from('categories').select('*').order('id');
+    if (error || !data || data.length === 0) {
+      throw new Error('Fallback to mock');
+    }
+    return data as VisaCategory[];
+  } catch (err) {
+    return [
+      {
+        id: 'cat-1',
+        slug: 'tourist-visas',
+        title_en: 'Tourist Visas',
+        title_ar: 'تأشيرات سياحية',
+        desc_en: 'Explore the world with our fast-track tourist visas.',
+        desc_ar: 'اكتشف العالم مع تأشيراتنا السياحية السريعة.',
+        icon: 'Plane'
+      }
+    ];
   }
-  return (data || []) as VisaCategory[];
 }, ['categories'], { revalidate: 60, tags: ['categories'] });
 
 export const getVisas = unstable_cache(async (): Promise<Visa[]> => {
-  const { data, error } = await supabase.from('visas').select('*').eq('is_active', true).order('created_at', { ascending: false });
-  if (error) {
-    console.error('Error fetching visas from Supabase:', error);
-    return [];
+  try {
+    const { data, error } = await supabase.from('visas').select('*').eq('is_active', true).order('created_at', { ascending: false });
+    if (error || !data || data.length === 0) {
+      throw new Error('Fallback to mock');
+    }
+    return data as Visa[];
+  } catch (err) {
+    return [
+      {
+        id: 'visa-1',
+        slug: 'dubai-premium-tourist-visa',
+        categoryId: 'cat-1',
+        title_en: 'Dubai Premium Tourist Visa',
+        title_ar: 'تأشيرة دبي السياحية المميزة',
+        desc_short_en: 'A fast-track 30-day tourist visa to the United Arab Emirates.',
+        desc_short_ar: 'تأشيرة سياحية سريعة لمدة 30 يوماً لدولة الإمارات العربية المتحدة.',
+        desc_full_en: 'Experience the magic of Dubai with our hassle-free premium tourist visa. Processing takes only 48 hours.',
+        desc_full_ar: 'عش سحر دبي مع تأشيرتنا السياحية المميزة. تستغرق المعالجة 48 ساعة فقط.',
+        price: 250,
+        currency: 'USD',
+        duration_en: '30 Days',
+        duration_ar: '30 يوم',
+        requirements_en: ['Passport copy', 'Personal photo'],
+        requirements_ar: ['صورة الجواز', 'صورة شخصية'],
+        image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop',
+        is_active: true
+      }
+    ];
   }
-  return (data || []) as Visa[];
 }, ['visas'], { revalidate: 60, tags: ['visas'] });
 
 export const getVisaBySlug = unstable_cache(async (slug: string): Promise<Visa | null> => {

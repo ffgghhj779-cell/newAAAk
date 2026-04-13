@@ -63,27 +63,9 @@ html {
 /* ============================================
    CUSTOM ANIMATIONS
    ============================================ */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.15); }
-  50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.3); }
-}
-
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
-}
-
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
 }
 
 .animate-shimmer {
@@ -100,7 +82,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF9F6;
+  background: #F0F2F5;
 }
 
 ::-webkit-scrollbar-thumb {

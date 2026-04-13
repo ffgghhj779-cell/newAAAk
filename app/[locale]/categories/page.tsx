@@ -25,35 +25,33 @@ export default async function CategoriesPage({
   const categories = await getCategories();
 
   return (
-    <div className="py-24 bg-[#FAF9F6] min-h-screen relative overflow-hidden">
-      <div className="absolute top-0 left-0 -translate-y-12 -translate-x-1/3 w-[800px] h-[800px] bg-gradient-to-br from-[#7C3AED]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1F2937] mb-6">
+    <div className="py-12 min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-[#1F2937] mb-2">
             {locale === 'ar' ? 'فئات التأشيرات' : 'Visa Categories'}
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] mx-auto rounded-full" />
+          <p className="text-gray-500">
+            {locale === 'ar' ? 'اختر الغرض من سفرك لعرض التأشيرات المناسبة' : 'Select your travel purpose to view matching visas'}
+          </p>
         </div>
 
         <ScrollReveal>
           <StaggerContainer>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {categories.map((category) => {
                 const Icon = iconMap[category.icon] || Globe;
                 return (
                   <StaggerItem key={category.id}>
                     <Link href={`/categories/${category.slug}`} className="block h-full">
-                      <Card className="group hover:shadow-2xl hover:shadow-[#7C3AED]/10 transition-all duration-500 border border-gray-100 bg-white/50 backdrop-blur-sm overflow-hidden h-full hover:-translate-y-1 rounded-3xl">
-                        <CardContent className="p-10 flex flex-col items-center text-center relative">
-                          <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/0 to-[#7C3AED]/0 group-hover:from-[#7C3AED]/5 group-hover:to-transparent transition-all duration-500" />
-                          <div className="w-24 h-24 bg-gradient-to-br from-[#FAF9F6] to-white shadow-inner rounded-[2rem] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 relative z-10 border border-gray-50">
-                            <Icon className="w-12 h-12 text-[#7C3AED]" strokeWidth={1.5} />
-                          </div>
-                          <h3 className="text-2xl font-bold text-[#1F2937] mb-2 relative z-10 group-hover:text-[#7C3AED] transition-colors">
-                            {locale === 'ar' ? category.title_ar : category.title_en}
-                          </h3>
-                        </CardContent>
-                      </Card>
+                      <div className="bg-white border border-gray-200 rounded-2xl p-6 h-full shadow-sm hover:border-[#7C3AED] hover:shadow-md transition-all duration-200 group flex items-start flex-col">
+                        <div className="w-12 h-12 rounded-xl bg-[#7C3AED]/10 flex items-center justify-center mb-4 text-[#7C3AED] group-hover:scale-105 transition-transform duration-200">
+                          <Icon className="w-6 h-6" strokeWidth={1.5} />
+                        </div>
+                        <h3 className="text-lg font-bold text-[#1F2937] group-hover:text-[#7C3AED] transition-colors">
+                          {locale === 'ar' ? category.title_ar : category.title_en}
+                        </h3>
+                      </div>
                     </Link>
                   </StaggerItem>
                 );
