@@ -58,9 +58,9 @@
     "success": "Message sent successfully",
     "error": "Error sending message",
     "address": "Address",
-    "address_value": "World Trade Centre, Sheikh Zayed Road, Dubai, UAE",
-    "phone": "Phone",
-    "email_label": "Email"
+    "address_value": "Nasr City",
+    "phone": "+201009086283",
+    "email_label": "abdallahnooh7@gmail.com"
   },
   "About": {
     "title": "About Us",

@@ -2,10 +2,12 @@ import {getTranslations} from 'next-intl/server';
 import {Link} from '@/i18n/routing';
 import {Globe, Mail, Phone, MapPin} from 'lucide-react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import Image from 'next/image';
 
 export async function Footer({locale}: {locale: string}) {
   const t = await getTranslations('Footer');
   const tNav = await getTranslations('Navigation');
+  const tContact = await getTranslations('Contact');
 
   return (
     <footer className="bg-[#1F2937] text-white pt-16 pb-8">
@@ -15,8 +17,13 @@ export async function Footer({locale}: {locale: string}) {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-6">
-                <div className="w-10 h-10 bg-[#7C3AED] rounded-lg flex items-center justify-center">
-                  <Globe className="text-white w-6 h-6" />
+                <div className="w-12 h-12 relative flex items-center justify-center">
+                  <Image 
+                    src="/mylogo.png" 
+                    alt="Sovereign Ma'arij Fund Logo" 
+                    fill
+                    className="object-contain"
+                  />
                 </div>
                 <span className="font-bold text-xl">
                   {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Ma'arij Fund"}
@@ -62,15 +69,15 @@ export async function Footer({locale}: {locale: string}) {
               <ul className="space-y-4">
                 <li className="flex items-center gap-3 text-gray-400">
                   <MapPin className="w-5 h-5 text-[#A78BFA]" />
-                  <span>{locale === 'ar' ? 'برج التجارة العالمي، دبي، الإمارات' : 'World Trade Centre, Dubai, UAE'}</span>
+                  <span>{tContact('address_value')}</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-400">
                   <Phone className="w-5 h-5 text-[#A78BFA]" />
-                  <span dir="ltr">+971 4 123 4567</span>
+                  <span dir="ltr">{tContact('phone')}</span>
                 </li>
                 <li className="flex items-center gap-3 text-gray-400">
                   <Mail className="w-5 h-5 text-[#A78BFA]" />
-                  <span>info@maarijfund.com</span>
+                  <span>{tContact('email_label')}</span>
                 </li>
               </ul>
             </div>

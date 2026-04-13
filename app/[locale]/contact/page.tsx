@@ -57,7 +57,7 @@ export default async function ContactPage({
                       {isAr ? 'العنوان' : 'Address'}
                     </h3>
                     <p className="text-gray-600">
-                      {isAr ? 'برج التجارة العالمي، شارع الشيخ زايد، دبي، الإمارات العربية المتحدة' : 'World Trade Centre, Sheikh Zayed Road, Dubai, UAE'}
+                      {isAr ? 'مدينة نصر' : 'Nasr City'}
                     </p>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ export default async function ContactPage({
                       {isAr ? 'الهاتف' : 'Phone'}
                     </h3>
                     <p className="text-gray-600" dir="ltr">
-                      +971 4 123 4567
+                      +201009086283
                     </p>
                   </div>
                 </div>
@@ -85,7 +85,7 @@ export default async function ContactPage({
                       {isAr ? 'البريد الإلكتروني' : 'Email'}
                     </h3>
                     <p className="text-gray-600">
-                      info@maarijfund.com
+                      abdallahnooh7@gmail.com
                     </p>
                   </div>
                 </div>

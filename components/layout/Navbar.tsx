@@ -4,6 +4,7 @@ import {useTranslations} from 'next-intl';
 import {Link, usePathname, useRouter} from '@/i18n/routing';
 import {Button} from '@/components/ui/button';
 import {Globe, Menu, X, LogOut, User} from 'lucide-react';
+import Image from 'next/image';
 import {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'motion/react';
 import {createClient} from '@/lib/supabase/client';
@@ -69,8 +70,13 @@ export function Navbar({locale}: {locale: string}) {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-[#7C3AED] rounded-lg flex items-center justify-center">
-                <Globe className="text-white w-6 h-6" />
+              <div className="w-12 h-12 relative flex items-center justify-center">
+                <Image 
+                  src="/mylogo.png" 
+                  alt="Sovereign Ma'arij Fund Logo" 
+                  fill
+                  className="object-contain"
+                />
               </div>
               <span className="font-bold text-xl text-[#1F2937]">
                 {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Ma'arij Fund"}
