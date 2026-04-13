@@ -33,19 +33,36 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
   const isAdminRoute = pathname.includes('/admin')
-  const isLoginRoute = pathname.includes('/admin/login')
+  const isAdminLoginRoute = pathname.includes('/admin/login')
 
-  if (!user && isAdminRoute && !isLoginRoute) {
-    const url = request.nextUrl.clone()
-    url.pathname = pathname.replace('/admin', '/admin/login')
-    return NextResponse.redirect(url)
+  // Admin route protection: require admin role
+  if (isAdminRoute && !isAdminLoginRoute) {
+    if (!user) {
+      // Not logged in → redirect to admin login
+      const url = request.nextUrl.clone()
+      url.pathname = pathname.replace('/admin', '/admin/login')
+      return NextResponse.redirect(url)
+    }
+
+    // Check if user has admin role
+    const userRole = user.user_metadata?.role
+    if (userRole !== 'admin') {
+      // Logged in but not admin → redirect to home
+      const locale = pathname.startsWith('/ar') ? 'ar' : 'en'
+      const url = request.nextUrl.clone()
+      url.pathname = `/${locale}`
+      return NextResponse.redirect(url)
+    }
   }
 
-  // If user is logged in and tries to access login page, redirect to admin
-  if (user && isLoginRoute) {
-    const url = request.nextUrl.clone()
-    url.pathname = pathname.replace('/admin/login', '/admin')
-    return NextResponse.redirect(url)
+  // If admin user tries to access admin login page, redirect to admin dashboard
+  if (user && isAdminLoginRoute) {
+    const userRole = user.user_metadata?.role
+    if (userRole === 'admin') {
+      const url = request.nextUrl.clone()
+      url.pathname = pathname.replace('/admin/login', '/admin')
+      return NextResponse.redirect(url)
+    }
   }
 
   return response

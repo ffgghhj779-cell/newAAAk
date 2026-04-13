@@ -7,75 +7,62 @@ import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
-import { Mail, Lock, ShieldCheck } from 'lucide-react';
+import { Lock } from 'lucide-react';
 
-export default function AdminLoginPage() {
-  const [email, setEmail] = useState('');
+export default function UpdatePasswordPage() {
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
   const t = useTranslations('Auth');
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (password.length < 6) {
+      toast.error(t('password_min_length'));
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error(t('passwords_mismatch'));
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
+      const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
-
-      router.refresh();
-      router.push('/admin');
+      toast.success(t('password_updated'));
+      router.push('/auth/login');
     } catch (err: any) {
-      toast.error(err.message || t('login_error'));
+      toast.error(err.message || 'Failed to update password');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6] px-4 py-16 relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#7C3AED]/8 to-transparent rounded-full blur-3xl pointer-events-none" />
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-md w-full bg-white rounded-3xl shadow-xl p-8 border border-gray-100"
+        className="max-w-md w-full bg-white rounded-3xl shadow-xl p-8 border border-gray-100 relative z-10"
       >
         <div className="text-center mb-8">
-          <div className="w-14 h-14 bg-[#7C3AED]/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <ShieldCheck className="w-7 h-7 text-[#7C3AED]" />
-          </div>
-          <h1 className="text-3xl font-bold text-[#1F2937] mb-2">{t('admin_login')}</h1>
-          <p className="text-gray-500">{t('admin_login_subtitle')}</p>
+          <h1 className="text-3xl font-bold text-[#1F2937] mb-2">{t('update_password')}</h1>
+          <p className="text-gray-500">{t('update_subtitle')}</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleUpdate} className="space-y-5">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('email')}
-            </label>
-            <div className="relative">
-              <Mail className="absolute top-1/2 -translate-y-1/2 left-3 rtl:left-auto rtl:right-3 w-5 h-5 text-gray-400" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full pl-11 rtl:pl-4 rtl:pr-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent outline-none transition-all"
-                placeholder="admin@maarij.com"
-                dir="ltr"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('password')}
+              {t('new_password')}
             </label>
             <div className="relative">
               <Lock className="absolute top-1/2 -translate-y-1/2 left-3 rtl:left-auto rtl:right-3 w-5 h-5 text-gray-400" />
@@ -84,8 +71,28 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                minLength={6}
                 className="w-full pl-11 rtl:pl-4 rtl:pr-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent outline-none transition-all"
-                placeholder="••••••••"
+                placeholder={t('new_password_placeholder')}
+                dir="ltr"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              {t('confirm_password')}
+            </label>
+            <div className="relative">
+              <Lock className="absolute top-1/2 -translate-y-1/2 left-3 rtl:left-auto rtl:right-3 w-5 h-5 text-gray-400" />
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                minLength={6}
+                className="w-full pl-11 rtl:pl-4 rtl:pr-11 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent outline-none transition-all"
+                placeholder={t('confirm_password_placeholder')}
                 dir="ltr"
               />
             </div>
@@ -96,7 +103,7 @@ export default function AdminLoginPage() {
             disabled={isLoading}
             className="w-full h-12 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-xl text-lg font-medium transition-all shadow-lg shadow-[#7C3AED]/20"
           >
-            {isLoading ? t('signing_in') : t('login')}
+            {isLoading ? t('updating_password') : t('update_password')}
           </Button>
         </form>
       </motion.div>

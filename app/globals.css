@@ -1,16 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), var(--font-cairo), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), var(--font-cairo), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-arabic: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Smooth scroll for the entire page */
+/* ============================================
+   SMOOTH SCROLL
+   ============================================ */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom animations */
+/* ============================================
+   ARABIC TYPOGRAPHY SYSTEM
+   Premium RTL support for enterprise-grade UX
+   ============================================ */
+
+/* Arabic body text: wider line-height for readability */
+[dir="rtl"] body {
+  word-spacing: 0.03em;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4 {
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+[dir="rtl"] p,
+[dir="rtl"] span,
+[dir="rtl"] li,
+[dir="rtl"] label {
+  line-height: 1.85;
+}
+
+/* RTL form field alignment */
+[dir="rtl"] input:not([dir="ltr"]),
+[dir="rtl"] textarea:not([dir="ltr"]),
+[dir="rtl"] select {
+  text-align: right;
+}
+
+/* Ensure LTR fields (emails, phones, passwords) stay left-aligned */
+[dir="rtl"] input[dir="ltr"],
+[dir="rtl"] input[type="email"],
+[dir="rtl"] input[type="tel"],
+[dir="rtl"] input[type="password"],
+[dir="rtl"] input[type="number"] {
+  text-align: left;
+  direction: ltr;
+}
+
+/* RTL button icon order fix */
+[dir="rtl"] .rtl\:flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* ============================================
+   CUSTOM ANIMATIONS
+   ============================================ */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
@@ -40,7 +92,9 @@ html {
   animation: shimmer 2s ease-in-out infinite;
 }
 
-/* Modern scrollbar */
+/* ============================================
+   MODERN SCROLLBAR
+   ============================================ */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -58,7 +112,9 @@ html {
   background: #9ca3af;
 }
 
-/* Skeleton loading animation */
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
 @keyframes skeleton-loading {
   0% { opacity: 0.6; }
   50% { opacity: 1; }
@@ -66,8 +122,14 @@ html {
 }
 
 .skeleton {
-  animation: skeleton-loading 1.5s ease-in-out infinite;
   background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   FONT UTILITY CLASS
+   ============================================ */
+.font-arabic {
+  font-family: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
 }

@@ -88,6 +88,7 @@ export function ContactForm({ isAr }: { isAr: boolean }) {
           onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))}
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#7C3AED] focus:border-transparent outline-none transition-all"
           placeholder={isAr ? 'أدخل بريدك الإلكتروني' : 'Enter your email'}
+          dir="ltr"
         />
       </div>
       <div>
