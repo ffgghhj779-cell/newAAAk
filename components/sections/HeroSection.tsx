@@ -2,107 +2,103 @@
 
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/routing';
-import {Button} from '@/components/ui/button';
-import {ArrowRight, ArrowLeft, ShieldCheck, Globe2, Users} from 'lucide-react';
-import Image from 'next/image';
 import {motion} from 'motion/react';
-import {AnimatedCounter} from '@/components/ui/AnimatedCounter';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
-};
+import {ArrowRight, ArrowLeft, ShieldCheck, FileText, Globe2} from 'lucide-react';
+import Image from 'next/image';
 
 export function HeroSection({locale}: {locale: string}) {
   const t = useTranslations('Index');
+  const isAr = locale === 'ar';
 
   return (
-    <section className="relative overflow-hidden bg-[#FAF9F6]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-32 lg:pb-40">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="relative overflow-hidden bg-white border-b border-gray-200">
+      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.015] mix-blend-multiply pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-50 to-transparent opacity-60 pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20 lg:pt-28 lg:pb-28 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
           <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="z-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7C3AED]/10 text-[#7C3AED] font-medium text-sm mb-6 border border-[#7C3AED]/20 animate-pulse-glow">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-purple-100 text-purple-800 font-semibold text-xs tracking-wider uppercase mb-6">
               <ShieldCheck className="w-4 h-4" />
-              <span>{locale === 'ar' ? 'شريكك الموثوق للتأشيرات' : 'Your Trusted Visa Partner'}</span>
-            </motion.div>
+              <span>{isAr ? 'منصة التأشيرات الحكومية والاستثمارية' : 'Government & Investment Visa Platform'}</span>
+            </div>
             
-            <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-serif font-bold text-[#1F2937] leading-tight mb-6">
-              {t('hero_title')}
-            </motion.h1>
+            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6 tracking-tight">
+              {isAr ? 'بوابتك السيادية نحو ' : 'Your Sovereign Gateway to '}
+              <span className="text-purple-700">{isAr ? 'العالم' : 'The World'}</span>
+            </h1>
             
-            <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 leading-relaxed max-w-2xl font-light">
-              {t('hero_subtitle')}
-            </motion.p>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-xl">
+              {isAr 
+                ? 'استمتع بخدمات تأشيرات استثنائية مصممة خصيصاً للمستثمرين وكبار الشخصيات ورجال الأعمال، مع معايير سيادية من الموثوقية والسرعة.' 
+                : 'Experience exceptional visa services tailored for investors, VIPs, and business professionals, with sovereign standards of reliability and speed.'}
+            </p>
             
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button asChild size="lg" className="bg-[#7C3AED] hover:bg-[#6D28D9] text-lg h-14 px-8 shadow-lg shadow-[#7C3AED]/20 transition-all hover:shadow-[#7C3AED]/40 hover:-translate-y-0.5">
-                <Link href="/visas">
-                  {t('explore_visas')}
-                  {locale === 'ar' ? <ArrowLeft className="ml-2 w-5 h-5" /> : <ArrowRight className="ml-2 w-5 h-5" />}
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg h-14 px-8 border-2 border-gray-200 hover:border-[#7C3AED] hover:bg-transparent transition-all hover:-translate-y-0.5 bg-white">
-                <Link href="/about">
-                  {t('learn_more')}
-                </Link>
-              </Button>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-8 border-t border-gray-200/60">
-              <div>
-                <div className="text-3xl font-bold text-[#1F2937] mb-1"><AnimatedCounter value={500} />+</div>
-                <div className="text-sm text-gray-500 font-medium flex items-center gap-1.5"><Users className="w-4 h-4 text-[#7C3AED]" /> {locale === 'ar' ? 'عميل سعيد' : 'Happy Clients'}</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-[#1F2937] mb-1"><AnimatedCounter value={50} />+</div>
-                <div className="text-sm text-gray-500 font-medium flex items-center gap-1.5"><Globe2 className="w-4 h-4 text-[#7C3AED]" /> {locale === 'ar' ? 'وجهة عالمية' : 'Global Destinations'}</div>
-              </div>
-              <div className="hidden sm:block">
-                <div className="text-3xl font-bold text-[#1F2937] mb-1"><AnimatedCounter value={99} />%</div>
-                <div className="text-sm text-gray-500 font-medium flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-[#7C3AED]" /> {locale === 'ar' ? 'نسبة النجاح' : 'Success Rate'}</div>
-              </div>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link 
+                href="/visas" 
+                className="inline-flex justify-center items-center h-14 px-8 rounded-xl bg-purple-700 text-white font-medium hover:bg-purple-800 transition-colors shadow-sm"
+              >
+                {isAr ? 'ابدأ طلبك الآن' : 'Start Your Application'}
+                {isAr ? <ArrowLeft className="mr-2 w-5 h-5" /> : <ArrowRight className="ml-2 w-5 h-5" />}
+              </Link>
+              <Link 
+                href="/categories" 
+                className="inline-flex justify-center items-center h-14 px-8 rounded-xl bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors shadow-sm"
+              >
+                {isAr ? 'تصفح البرامج' : 'Explore Programs'}
+              </Link>
+            </div>
           </motion.div>
 
+          {/* Right Visual Structure - High-End SaaS Dashboard Mockup */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-            className="relative z-10 lg:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/10 animate-float"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative hidden lg:block"
           >
-            <Image
-              src="https://picsum.photos/seed/travel/1200/800"
-              alt="Global Travel"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              referrerPolicy="no-referrer"
-              className="object-cover hover:scale-105 transition-transform duration-700"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1F2937]/60 via-transparent to-transparent" />
+            <div className="relative rounded-2xl bg-white shadow-2xl shadow-indigo-100/50 border border-gray-200 overflow-hidden">
+              <div className="h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4 gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-400" />
+                <div className="w-3 h-3 rounded-full bg-amber-400" />
+                <div className="w-3 h-3 rounded-full bg-green-400" />
+              </div>
+              <div className="p-6 grid gap-4 bg-gray-50/50 h-[400px]">
+                {/* Mocked structure representing a clean dashboard */}
+                <div className="flex justify-between items-end mb-2">
+                   <div className="h-4 w-32 bg-gray-200 rounded" />
+                   <div className="h-8 w-24 bg-purple-100 rounded" />
+                </div>
+                <div className="h-32 bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex gap-4">
+                   <div className="w-16 h-16 bg-purple-50 rounded-lg flex items-center justify-center">
+                     <Globe2 className="w-8 h-8 text-purple-600" />
+                   </div>
+                   <div className="flex flex-col gap-2 flex-grow justify-center">
+                     <div className="h-3 w-1/2 bg-gray-200 rounded" />
+                     <div className="h-2 w-1/3 bg-gray-100 rounded" />
+                   </div>
+                </div>
+                <div className="h-32 bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex gap-4">
+                   <div className="w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center">
+                     <FileText className="w-8 h-8 text-blue-600" />
+                   </div>
+                   <div className="flex flex-col gap-2 flex-grow justify-center">
+                     <div className="h-3 w-2/3 bg-gray-200 rounded" />
+                     <div className="h-2 w-1/2 bg-gray-100 rounded" />
+                   </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
+
         </div>
       </div>
-      
-      {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[800px] h-[800px] bg-gradient-to-br from-[#7C3AED]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-gradient-to-tr from-[#A78BFA]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
     </section>
   );
 }

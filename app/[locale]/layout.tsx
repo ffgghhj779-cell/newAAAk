@@ -22,8 +22,8 @@ export async function generateMetadata({
   const {locale} = await params;
   return {
     title: {
-      template: locale === 'ar' ? '%s | صندوق المعارج السيادي' : "%s | Sovereign Ma'arij Fund",
-      default: locale === 'ar' ? 'صندوق المعارج السيادي لحلول الـتأشيرات' : "Sovereign Ma'arij Fund | Visa Solutions",
+      template: locale === 'ar' ? '%s | صندوق المعارج السيادي' : "%s | Sovereign Maareg Fund",
+      default: locale === 'ar' ? 'صندوق المعارج السيادي لحلول الـتأشيرات' : "Sovereign Maareg Fund | Visa Solutions",
     },
     description: locale === 'ar' ? 'نقدم خدمات تأشيرات متميزة وحلول تنقل عالمية بمعايير سيادية.' : 'Providing premium visa services and global mobility solutions with sovereign standards.',
     alternates: {

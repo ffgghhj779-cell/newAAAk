@@ -26,7 +26,7 @@ export async function Footer({locale}: {locale: string}) {
                   />
                 </div>
                 <span className="font-bold text-xl">
-                  {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Ma'arij Fund"}
+                  {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Maareg Fund"}
                 </span>
               </div>
               <p className="text-gray-400 leading-relaxed">

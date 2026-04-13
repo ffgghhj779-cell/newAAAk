@@ -79,7 +79,7 @@ export function Navbar({locale}: {locale: string}) {
                 />
               </div>
               <span className="font-bold text-xl text-[#1F2937]">
-                {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Ma'arij Fund"}
+                {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Maareg Fund"}
               </span>
             </Link>
           </div>
