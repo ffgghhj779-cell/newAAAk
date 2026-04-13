@@ -1,0 +1,40 @@
+{
+  "Index": {
+    "title": "Sovereign Ma'arij Fund",
+    "description": "Premium Visa Services & Products",
+    "hero_title": "Your Gateway to the World",
+    "hero_subtitle": "Experience seamless, premium visa services tailored for excellence and global mobility.",
+    "explore_visas": "Explore Visas",
+    "learn_more": "Learn More",
+    "about_title": "About the Fund",
+    "about_desc": "Sovereign Ma'arij Fund is a premier institution dedicated to facilitating global mobility through exclusive visa services and strategic partnerships.",
+    "featured_categories": "Featured Categories",
+    "how_it_works": "How It Works",
+    "why_choose_us": "Why Choose Us",
+    "testimonials": "Client Testimonials",
+    "cta_title": "Ready to start your journey?",
+    "cta_desc": "Contact our experts today for a personalized consultation.",
+    "contact_us": "Contact Us"
+  },
+  "Navigation": {
+    "home": "Home",
+    "visas": "Visas",
+    "categories": "Categories",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Visas": {
+    "title": "All Visas",
+    "search_placeholder": "Search visas...",
+    "all_categories": "All Categories",
+    "view_details": "View Details",
+    "price": "Price",
+    "duration": "Duration",
+    "requirements": "Requirements"
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "quick_links": "Quick Links",
+    "contact_info": "Contact Info"
+  }
+}
