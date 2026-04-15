@@ -66,16 +66,17 @@ export function VisasClient({ visas, categories, locale }: { visas: any[], categ
             filteredVisas.map((visa) => {
               const category = categories.find(c => c.id === visa.categoryId);
               return (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  key={visa.id}
-                >
-                  <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200 shadow-sm hover:border-[#7C3AED] hover:shadow-md transition-all duration-200 rounded-2xl group">
-                    <div className="relative h-48 w-full overflow-hidden border-b border-gray-100">
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    key={visa.id}
+                    whileHover={{ y: -8 }}
+                  >
+                    <Card className="overflow-hidden flex flex-col h-full bg-white border border-gray-200 shadow-sm transition-all duration-300 rounded-2xl group hover:shadow-xl hover:border-purple-300">
+                      <div className="relative h-48 w-full overflow-hidden border-b border-gray-100">
                       <Image
                         src={visa.image}
                         alt={locale === 'ar' ? visa.title_ar : visa.title_en}
