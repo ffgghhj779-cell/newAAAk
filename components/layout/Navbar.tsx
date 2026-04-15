@@ -162,7 +162,7 @@ export function Navbar({locale}: {locale: string}) {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Right Edge (Language + Auth) */}
           <div className="md:hidden flex items-center gap-2">
             <Button
               variant="ghost"
@@ -174,80 +174,13 @@ export function Navbar({locale}: {locale: string}) {
             </Button>
 
             {user && (
-              <div className="w-8 h-8 bg-[#7C3AED] text-white rounded-full flex items-center justify-center text-sm font-bold">
+              <div className="w-8 h-8 bg-[#7C3AED] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                 {userInitial}
               </div>
             )}
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-[#1F2937]"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </Button>
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b overflow-hidden"
-          >
-            <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block px-3 py-3 rounded-xl text-base font-medium transition-colors ${isActive ? 'text-[#7C3AED] bg-[#7C3AED]/10' : 'text-[#1F2937] hover:text-[#7C3AED] hover:bg-gray-50'}`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-
-              {/* Mobile Auth */}
-              <div className="border-t border-gray-100 mt-3 pt-3 space-y-1">
-                {user ? (
-                  <button
-                    onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }}
-                    className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-red-600 hover:bg-red-50 text-base font-medium"
-                  >
-                    <LogOut className="w-5 h-5" />
-                    {tAuth('logout')}
-                  </button>
-                ) : (
-                  <>
-                    <Link
-                      href="/auth/login"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-3 py-3 rounded-xl text-base font-medium text-[#1F2937] hover:bg-gray-50"
-                    >
-                      {tAuth('login')}
-                    </Link>
-                    <Link
-                      href="/auth/signup"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-3 py-3 rounded-xl text-base font-medium text-[#7C3AED] bg-[#7C3AED]/10"
-                    >
-                      {tAuth('signup')}
-                    </Link>
-                  </>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
   );
 }

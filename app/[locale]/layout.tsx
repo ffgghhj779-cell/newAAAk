@@ -6,6 +6,7 @@ import {Inter, Noto_Kufi_Arabic, Playfair_Display} from 'next/font/google';
 import '../globals.css';
 import {Navbar} from '@/components/layout/Navbar';
 import {Footer} from '@/components/layout/Footer';
+import {MobileTabBar} from '@/components/layout/MobileTabBar';
 import {Toaster} from 'sonner';
 
 const inter = Inter({subsets: ['latin'], variable: '--font-inter'});
@@ -69,11 +70,12 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <div className="max-w-[1440px] mx-auto min-h-screen bg-[#F0F2F5] shadow-2xl overflow-hidden flex flex-col relative w-full">
             <Navbar locale={locale} />
-            <main className="flex-grow flex flex-col">
+            <main className="flex-grow flex flex-col pb-16 md:pb-0">
               {children}
             </main>
             <Footer locale={locale} />
           </div>
+          <MobileTabBar locale={locale} />
           <Toaster position="bottom-right" richColors />
         </NextIntlClientProvider>
       </body>
