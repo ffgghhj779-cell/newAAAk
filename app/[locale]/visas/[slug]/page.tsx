@@ -73,25 +73,25 @@ export default async function VisaDetailPage({
         '@type': 'ListItem',
         position: 1,
         name: locale === 'ar' ? 'الرئيسية' : 'Home',
-        item: `https://maarijfund.com/${locale}`
+        item: `https://www.almaarijsovereignwealthfund.com/${locale}`
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: locale === 'ar' ? 'الفئات' : 'Categories',
-        item: `https://maarijfund.com/${locale}/categories`
+        item: `https://www.almaarijsovereignwealthfund.com/${locale}/categories`
       },
       category ? {
         '@type': 'ListItem',
         position: 3,
         name: locale === 'ar' ? category.title_ar : category.title_en,
-        item: `https://maarijfund.com/${locale}/categories/${category.slug}`
+        item: `https://www.almaarijsovereignwealthfund.com/${locale}/categories/${category.slug}`
       } : null,
       {
         '@type': 'ListItem',
         position: category ? 4 : 3,
         name: locale === 'ar' ? visa.title_ar : visa.title_en,
-        item: `https://maarijfund.com/${locale}/visas/${slug}`
+        item: `https://www.almaarijsovereignwealthfund.com/${locale}/visas/${slug}`
       }
     ].filter(Boolean)
   };

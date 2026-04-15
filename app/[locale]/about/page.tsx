@@ -2,7 +2,40 @@ import {setRequestLocale} from 'next-intl/server';
 import {useTranslations} from 'next-intl';
 import Image from 'next/image';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { Metadata } from 'next';
 
+const SITE_URL = 'https://www.almaarijsovereignwealthfund.com';
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{locale: string}>;
+}): Promise<Metadata> {
+  const {locale} = await params;
+  const isAr = locale === 'ar';
+
+  return {
+    title: isAr ? 'من نحن | صندوق المعارج السيادي' : 'About Us | Sovereign Maareg Fund',
+    description: isAr
+      ? 'تعرف على صندوق المعارج السيادي، مؤسسة رائدة في خدمات التأشيرات والتنقل العالمي. شبكة شراكات عالمية مع السفارات والقنصليات.'
+      : 'Learn about Sovereign Maareg Fund, a premier institution in visa services and global mobility. A global network of partnerships with embassies and consulates.',
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/about`,
+      languages: {
+        'en': `${SITE_URL}/en/about`,
+        'ar': `${SITE_URL}/ar/about`,
+        'x-default': `${SITE_URL}/en/about`,
+      },
+    },
+    openGraph: {
+      title: isAr ? 'من نحن - صندوق المعارج السيادي' : 'About Us - Sovereign Maareg Fund',
+      description: isAr
+        ? 'مؤسسة رائدة في خدمات التأشيرات وحلول التنقل العالمي بمعايير سيادية.'
+        : 'A premier institution in visa services and global mobility solutions with sovereign standards.',
+      url: `${SITE_URL}/${locale}/about`,
+    },
+  };
+}
 export default async function AboutPage({
   params
 }: {

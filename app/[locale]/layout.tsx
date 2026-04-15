@@ -8,6 +8,7 @@ import {Navbar} from '@/components/layout/Navbar';
 import {Footer} from '@/components/layout/Footer';
 import {MobileTabBar} from '@/components/layout/MobileTabBar';
 import {Toaster} from 'sonner';
+import {getOrganizationSchema, getFinancialServiceSchema, getWebSiteSchema} from '@/lib/schema';
 
 const inter = Inter({subsets: ['latin'], variable: '--font-inter'});
 const notoKufi = Noto_Kufi_Arabic({subsets: ['arabic'], variable: '--font-arabic', weight: ['300', '400', '500', '600', '700']});
@@ -15,25 +16,111 @@ const playfair = Playfair_Display({subsets: ['latin'], variable: '--font-playfai
 
 import {Metadata} from 'next';
 
+const SITE_URL = 'https://www.almaarijsovereignwealthfund.com';
+
 export async function generateMetadata({
   params
 }: {
   params: Promise<{locale: string}>;
 }): Promise<Metadata> {
   const {locale} = await params;
+  const isAr = locale === 'ar';
+
   return {
+    // Core Meta
     title: {
-      template: locale === 'ar' ? '%s | صندوق المعارج السيادي' : "%s | Sovereign Maareg Fund",
-      default: locale === 'ar' ? 'صندوق المعارج السيادي لحلول الـتأشيرات' : "Sovereign Maareg Fund | Visa Solutions",
+      template: isAr ? '%s | صندوق المعارج السيادي' : "%s | Sovereign Maareg Fund",
+      default: isAr 
+        ? 'صندوق المعارج السيادي | حلول التأشيرات والتنقل العالمي للمستثمرين'
+        : "Sovereign Maareg Fund | Premium Visa & Global Mobility for Investors",
     },
-    description: locale === 'ar' ? 'نقدم خدمات تأشيرات متميزة وحلول تنقل عالمية بمعايير سيادية.' : 'Providing premium visa services and global mobility solutions with sovereign standards.',
+    description: isAr
+      ? 'صندوق المعارج السيادي - مؤسسة رائدة متخصصة في خدمات التأشيرات السيادية، إقامة المستثمرين، تأسيس الشركات الدولية، وحلول التنقل العالمي لكبار المستثمرين ورجال الأعمال. نسبة نجاح تتجاوز 99.9%.'
+      : 'Sovereign Maareg Fund - A premier institution specializing in sovereign visa services, investor residency, international company formation, and global mobility solutions for high-net-worth investors. 99.9%+ success rate.',
+    
+    // Metadata Base URL
+    metadataBase: new URL(SITE_URL),
+
+    // Canonical & Language Alternates
     alternates: {
+      canonical: `${SITE_URL}/${locale}`,
       languages: {
-        'en': '/en',
-        'ar': '/ar',
-        'x-default': '/en',
+        'en': `${SITE_URL}/en`,
+        'ar': `${SITE_URL}/ar`,
+        'x-default': `${SITE_URL}/en`,
       },
     },
+
+    // Keywords
+    keywords: isAr
+      ? ['صندوق المعارج', 'تأشيرات استثمارية', 'إقامة المستثمرين', 'جنسية عن طريق الاستثمار', 'تأشيرة ذهبية', 'تنقل عالمي', 'تأسيس شركات دولية', 'إدارة ثروات']
+      : ['Sovereign Maareg Fund', 'investor visa', 'citizenship by investment', 'golden visa', 'global mobility', 'corporate establishment', 'wealth management', 'residency by investment', 'premium visa services'],
+
+    // OpenGraph - For social media sharing (Facebook, LinkedIn, WhatsApp)
+    openGraph: {
+      type: 'website',
+      locale: locale === 'ar' ? 'ar_EG' : 'en_US',
+      alternateLocale: locale === 'ar' ? 'en_US' : 'ar_EG',
+      url: `${SITE_URL}/${locale}`,
+      siteName: isAr ? 'صندوق المعارج السيادي' : 'Sovereign Maareg Fund',
+      title: isAr 
+        ? 'صندوق المعارج السيادي | حلول التأشيرات والتنقل العالمي'
+        : 'Sovereign Maareg Fund | Premium Visa & Global Mobility',
+      description: isAr
+        ? 'حلول تأشيرات سيادية وتنقل عالمي لكبار المستثمرين ورجال الأعمال. نسبة نجاح تتجاوز 99.9%.'
+        : 'Sovereign visa solutions and global mobility for high-net-worth investors. 99.9%+ success rate.',
+      images: [
+        {
+          url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: isAr ? 'صندوق المعارج السيادي' : 'Sovereign Maareg Fund',
+          type: 'image/png',
+        },
+      ],
+    },
+
+    // Twitter Card
+    twitter: {
+      card: 'summary_large_image',
+      title: isAr 
+        ? 'صندوق المعارج السيادي'
+        : 'Sovereign Maareg Fund',
+      description: isAr
+        ? 'حلول تأشيرات سيادية وتنقل عالمي لكبار المستثمرين.'
+        : 'Sovereign visa solutions and global mobility for investors.',
+      images: [`${SITE_URL}/og-image.png`],
+    },
+
+    // Robots Directive
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1,
+      },
+    },
+
+    // Verification tags (add real IDs when you have them)
+    // verification: {
+    //   google: 'YOUR_GOOGLE_SEARCH_CONSOLE_ID',
+    //   other: {
+    //     'msvalidate.01': 'YOUR_BING_WEBMASTER_ID',
+    //   },
+    // },
+
+    // App Info
+    applicationName: isAr ? 'صندوق المعارج السيادي' : 'Sovereign Maareg Fund',
+    category: 'finance',
+    creator: 'Sovereign Maareg Fund',
+    publisher: 'Sovereign Maareg Fund',
   };
 }
 
@@ -64,8 +151,28 @@ export default async function LocaleLayout({
 
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
+  // Generate structured data schemas
+  const organizationSchema = getOrganizationSchema(locale);
+  const financialServiceSchema = getFinancialServiceSchema(locale);
+  const webSiteSchema = getWebSiteSchema(locale);
+
   return (
     <html lang={locale} dir={dir} className={`${inter.variable} ${notoKufi.variable} ${playfair.variable}`}>
+      <head>
+        {/* JSON-LD Structured Data for AI & Search Engines */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(financialServiceSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+      </head>
       <body className={`bg-purple-50 text-[#1F2937] min-h-screen flex flex-col antialiased ${locale === 'ar' ? 'font-arabic' : 'font-sans'}`}>
         <NextIntlClientProvider messages={messages}>
           <div className="max-w-[1440px] mx-auto min-h-screen bg-[#F0F2F5] shadow-2xl overflow-hidden flex flex-col relative w-full">

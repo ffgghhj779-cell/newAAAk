@@ -3,7 +3,40 @@ import {Button} from '@/components/ui/button';
 import {Mail, Phone, MapPin} from 'lucide-react';
 import { ContactForm } from '@/components/form/ContactForm';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { Metadata } from 'next';
 
+const SITE_URL = 'https://www.almaarijsovereignwealthfund.com';
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{locale: string}>;
+}): Promise<Metadata> {
+  const {locale} = await params;
+  const isAr = locale === 'ar';
+
+  return {
+    title: isAr ? 'اتصل بنا | صندوق المعارج السيادي' : 'Contact Us | Sovereign Maareg Fund',
+    description: isAr
+      ? 'تواصل مع خبراء صندوق المعارج السيادي للاستشارات والاستفسارات حول خدمات التأشيرات والتنقل العالمي.'
+      : 'Get in touch with Sovereign Maareg Fund experts for consultations and inquiries about visa services and global mobility.',
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/contact`,
+      languages: {
+        'en': `${SITE_URL}/en/contact`,
+        'ar': `${SITE_URL}/ar/contact`,
+        'x-default': `${SITE_URL}/en/contact`,
+      },
+    },
+    openGraph: {
+      title: isAr ? 'اتصل بنا - صندوق المعارج السيادي' : 'Contact Us - Sovereign Maareg Fund',
+      description: isAr
+        ? 'تواصل مع فريقنا للاستشارات حول التأشيرات والتنقل العالمي.'
+        : 'Contact our team for visa and global mobility consultations.',
+      url: `${SITE_URL}/${locale}/contact`,
+    },
+  };
+}
 export default async function ContactPage({
   params
 }: {
