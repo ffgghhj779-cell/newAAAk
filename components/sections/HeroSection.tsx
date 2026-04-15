@@ -18,7 +18,7 @@ export function HeroSection({locale}: {locale: string}) {
       <div className="absolute top-0 right-0 w-full md:w-1/2 h-[500px] bg-gradient-to-l from-indigo-900/20 via-purple-900/10 to-transparent blur-3xl pointer-events-none transform translate-x-1/4 -translate-y-1/4 rounded-full" />
       <div className="absolute bottom-0 left-0 w-full md:w-1/3 h-[400px] bg-gradient-to-tr from-emerald-900/20 to-transparent blur-3xl pointer-events-none transform -translate-x-1/4 translate-y-1/4 rounded-full" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-36 lg:pb-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 md:pt-16 md:pb-20 lg:pt-20 lg:pb-24 relative z-10 flex flex-col justify-center min-h-[calc(100vh-120px)] lg:min-h-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           <motion.div 
@@ -36,7 +36,7 @@ export function HeroSection({locale}: {locale: string}) {
             </div>
             
             {/* High Contrast Typography */}
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tighter">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4rem] font-bold text-white leading-[1.15] mb-5 tracking-tighter">
               {isAr ? 'بوابتك السيادية نحو ' : 'Your Sovereign Gateway to '}
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
@@ -44,7 +44,7 @@ export function HeroSection({locale}: {locale: string}) {
               </span>
             </h1>
             
-            <p className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-xl font-light">
+            <p className="text-base md:text-lg text-slate-400 mb-8 leading-relaxed max-w-xl font-light">
               {isAr 
                 ? 'استمتع بخدمات تأشيرات استثنائية مصممة خصيصاً للمستثمرين وكبار الشخصيات ورجال الأعمال، مع معايير سيادية من الموثوقية والسرعة المطلقة.' 
                 : 'Experience exceptional visa services engineered for high-net-worth investors and executives, wielding sovereign standards of reliability and absolute speed.'}
@@ -95,7 +95,7 @@ export function HeroSection({locale}: {locale: string}) {
                 </div>
               </div>
 
-              <div className="p-6 grid grid-cols-2 gap-4 h-[420px]">
+              <div className="p-6 grid grid-cols-2 gap-4 h-[360px]">
                 
                 {/* Main Data Render Block */}
                 <div className="col-span-2 bg-[#0A1628] rounded-2xl border border-slate-800/80 p-5 flex flex-col justify-between relative overflow-hidden group">
