@@ -108,13 +108,10 @@ export async function generateMetadata({
       },
     },
 
-    // Verification tags (add real IDs when you have them)
-    // verification: {
-    //   google: 'YOUR_GOOGLE_SEARCH_CONSOLE_ID',
-    //   other: {
-    //     'msvalidate.01': 'YOUR_BING_WEBMASTER_ID',
-    //   },
-    // },
+    // Search Engine Verification
+    verification: {
+      google: 'mLKZtJlxOUu3QypCr5CD6SbWP_PScnNl2x9W24QEqIM',
+    },
 
     // App Info
     applicationName: isAr ? 'صندوق المعارج السيادي' : 'Sovereign Maareg Fund',
