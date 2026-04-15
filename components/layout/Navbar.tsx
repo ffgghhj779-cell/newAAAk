@@ -78,8 +78,8 @@ export function Navbar({locale}: {locale: string}) {
                   className="object-contain"
                 />
               </div>
-              <span className="font-bold text-lg md:text-xl text-[#1F2937]">
-                {locale === 'ar' ? 'صندوق المعارج السيادي' : "Sovereign Maareg Fund"}
+              <span className="font-bold text-lg md:text-xl text-[#0F172A] tracking-tighter">
+                {locale === 'ar' ? 'صندوق المعارج' : "Sovereign Maareg"}
               </span>
             </Link>
           </div>
@@ -92,13 +92,13 @@ export function Navbar({locale}: {locale: string}) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`font-medium transition-colors relative ${isActive ? 'text-[#7C3AED]' : 'text-[#1F2937] hover:text-[#7C3AED]'}`}
+                  className={`text-sm font-bold transition-all relative tracking-tight uppercase ${isActive ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}
                 >
                   {link.label}
                   {isActive && (
                     <motion.div
                       layoutId="nav-indicator"
-                      className="absolute -bottom-7 left-0 right-0 h-0.5 bg-[#7C3AED]"
+                      className="absolute -bottom-7 left-0 right-0 h-0.5 bg-blue-600"
                     />
                   )}
                 </Link>
@@ -122,7 +122,7 @@ export function Navbar({locale}: {locale: string}) {
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 transition-colors"
                 >
-                  <div className="w-8 h-8 bg-[#7C3AED] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-black shadow-sm">
                     {userInitial}
                   </div>
                 </button>
@@ -152,10 +152,10 @@ export function Navbar({locale}: {locale: string}) {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Button asChild variant="ghost" className="text-[#1F2937] font-medium">
+                 <Button asChild variant="ghost" className="text-slate-600 font-bold text-sm uppercase tracking-tight">
                   <Link href="/auth/login">{tAuth('login')}</Link>
                 </Button>
-                <Button asChild className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-full px-6 shadow-md shadow-[#7C3AED]/20">
+                <Button asChild className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-6 py-5 text-sm font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-95">
                   <Link href="/auth/signup">{tAuth('signup')}</Link>
                 </Button>
               </div>
