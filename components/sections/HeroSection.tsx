@@ -3,96 +3,145 @@
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/routing';
 import {motion} from 'motion/react';
-import {ArrowRight, ArrowLeft, ShieldCheck, FileText, Globe2} from 'lucide-react';
-import Image from 'next/image';
+import {ArrowRight, ArrowLeft, ShieldCheck, Activity, Globe, Zap} from 'lucide-react';
 
 export function HeroSection({locale}: {locale: string}) {
   const t = useTranslations('Index');
   const isAr = locale === 'ar';
 
   return (
-    <section className="relative overflow-hidden bg-white border-b border-gray-200">
-      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.015] mix-blend-multiply pointer-events-none" />
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-50 to-transparent opacity-60 pointer-events-none" />
+    <section className="relative overflow-hidden bg-[#050B14] border-b border-gray-900">
+      {/* Dark Mode Mesh Gradient Background */}
+      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-screen pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-28 lg:pb-28 relative z-10">
+      {/* Electric Accents */}
+      <div className="absolute top-0 right-0 w-full md:w-1/2 h-[500px] bg-gradient-to-l from-indigo-900/20 via-purple-900/10 to-transparent blur-3xl pointer-events-none transform translate-x-1/4 -translate-y-1/4 rounded-full" />
+      <div className="absolute bottom-0 left-0 w-full md:w-1/3 h-[400px] bg-gradient-to-tr from-emerald-900/20 to-transparent blur-3xl pointer-events-none transform -translate-x-1/4 translate-y-1/4 rounded-full" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-36 lg:pb-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-purple-100 text-purple-800 font-semibold text-xs tracking-wider uppercase mb-6">
-              <ShieldCheck className="w-4 h-4" />
-              <span>{isAr ? 'منصة التأشيرات الحكومية والاستثمارية' : 'Government & Investment Visa Platform'}</span>
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0A1628] border border-blue-900/50 text-blue-400 font-semibold text-xs tracking-widest uppercase mb-8 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+              <span className="relative flex h-2 w-2 mr-1 ml-1">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </span>
+              <span>{isAr ? 'الأنظمة تعمل بكفاءة' : 'System Operational'}</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.2] lg:leading-[1.1] mb-6 tracking-tight">
+            {/* High Contrast Typography */}
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tighter">
               {isAr ? 'بوابتك السيادية نحو ' : 'Your Sovereign Gateway to '}
-              <span className="text-purple-700">{isAr ? 'العالم' : 'The World'}</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                {isAr ? 'الاقتصاد العالمي' : 'The Global Market'}
+              </span>
             </h1>
             
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-xl">
+            <p className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-xl font-light">
               {isAr 
-                ? 'استمتع بخدمات تأشيرات استثنائية مصممة خصيصاً للمستثمرين وكبار الشخصيات ورجال الأعمال، مع معايير سيادية من الموثوقية والسرعة.' 
-                : 'Experience exceptional visa services tailored for investors, VIPs, and business professionals, with sovereign standards of reliability and speed.'}
+                ? 'استمتع بخدمات تأشيرات استثنائية مصممة خصيصاً للمستثمرين وكبار الشخصيات ورجال الأعمال، مع معايير سيادية من الموثوقية والسرعة المطلقة.' 
+                : 'Experience exceptional visa services engineered for high-net-worth investors and executives, wielding sovereign standards of reliability and absolute speed.'}
             </p>
             
+            {/* Magnetic Buttons & Spring Physics */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
-                href="/visas" 
-                className="w-full sm:w-auto inline-flex justify-center items-center h-14 px-8 rounded-xl bg-purple-700 text-white font-medium hover:bg-purple-800 transition-colors shadow-sm"
-              >
-                {isAr ? 'ابدأ طلبك الآن' : 'Start Your Application'}
-                {isAr ? <ArrowLeft className="mr-2 w-5 h-5" /> : <ArrowRight className="ml-2 w-5 h-5" />}
-              </Link>
-              <Link 
-                href="/categories" 
-                className="w-full sm:w-auto inline-flex justify-center items-center h-14 px-8 rounded-xl bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors shadow-sm"
-              >
-                {isAr ? 'تصفح البرامج' : 'Explore Programs'}
-              </Link>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
+                <Link 
+                  href="/visas" 
+                  className="w-full sm:w-auto inline-flex justify-center items-center h-14 px-8 rounded-full bg-blue-600 text-white font-medium transition-all shadow-[0_4px_14px_0_rgba(59,130,246,0.39)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.23)] hover:bg-blue-500"
+                >
+                  {isAr ? 'بدء تقديم الطلب' : 'Initialize Application'}
+                  {isAr ? <ArrowLeft className="mr-2 w-5 h-5" /> : <ArrowRight className="ml-2 w-5 h-5" />}
+                </Link>
+              </motion.div>
+              
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
+                <Link 
+                  href="/categories" 
+                  className="w-full sm:w-auto inline-flex justify-center items-center h-14 px-8 rounded-full bg-[#0A1628] border border-slate-800 text-slate-300 font-medium hover:bg-slate-800 hover:text-white transition-colors"
+                >
+                  {isAr ? 'استكشاف الأصول' : 'Explore Frameworks'}
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Right Visual Structure - High-End SaaS Dashboard Mockup */}
+          {/* Right Visual Structure - High-End Fintech "Bento" Terminal */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="relative hidden lg:block"
           >
-            <div className="relative rounded-2xl bg-white shadow-2xl shadow-indigo-100/50 border border-gray-200 overflow-hidden">
-              <div className="h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4 gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-400" />
-                <div className="w-3 h-3 rounded-full bg-amber-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
+            {/* Glassmorphic Panel */}
+            <div className="relative rounded-3xl bg-[#0B1221]/80 backdrop-blur-xl border border-slate-800/60 shadow-2xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent pointer-events-none" />
+              
+              <div className="h-12 border-b border-slate-800/60 flex items-center px-4 justify-between bg-[#050B14]/50">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                </div>
+                <div className="text-xs text-slate-500 font-mono flex items-center gap-2">
+                  <ShieldCheck className="w-3 h-3" /> ENCRYPTED CONNECTION
+                </div>
               </div>
-              <div className="p-6 grid gap-4 bg-gray-50/50 h-[400px]">
-                {/* Mocked structure representing a clean dashboard */}
-                <div className="flex justify-between items-end mb-2">
-                   <div className="h-4 w-32 bg-gray-200 rounded" />
-                   <div className="h-8 w-24 bg-purple-100 rounded" />
+
+              <div className="p-6 grid grid-cols-2 gap-4 h-[420px]">
+                
+                {/* Main Data Render Block */}
+                <div className="col-span-2 bg-[#0A1628] rounded-2xl border border-slate-800/80 p-5 flex flex-col justify-between relative overflow-hidden group">
+                   <div className="flex justify-between items-start z-10 relative">
+                     <div>
+                       <p className="text-slate-500 text-xs font-mono mb-1 tracking-wider uppercase">Live Processing</p>
+                       <p className="text-2xl font-bold text-white tracking-tight">Active Matrix</p>
+                     </div>
+                     <div className="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-xs font-mono border border-emerald-500/20 flex items-center gap-1">
+                       <Zap className="w-3 h-3" /> 14ms
+                     </div>
+                   </div>
+                   
+                   {/* Simulated Data Ticker */}
+                   <div className="z-10 relative mt-8 space-y-3 font-mono text-sm">
+                      <div className="flex justify-between border-b border-slate-800 pb-2">
+                        <span className="text-slate-400">Node_Routing</span>
+                        <span className="text-blue-400">OPTIMIZED</span>
+                      </div>
+                      <div className="flex justify-between border-b border-slate-800 pb-2">
+                        <span className="text-slate-400">Clearance_Rate</span>
+                        <span className="text-white">99.998%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Sys_Capacity</span>
+                        <span className="text-emerald-400">NOMINAL</span>
+                      </div>
+                   </div>
+                   
+                   {/* Background Glow */}
+                   <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-600/20 blur-3xl rounded-full group-hover:bg-blue-600/30 transition-colors duration-700" />
                 </div>
-                <div className="h-32 bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex gap-4">
-                   <div className="w-16 h-16 bg-purple-50 rounded-lg flex items-center justify-center">
-                     <Globe2 className="w-8 h-8 text-purple-600" />
-                   </div>
-                   <div className="flex flex-col gap-2 flex-grow justify-center">
-                     <div className="h-3 w-1/2 bg-gray-200 rounded" />
-                     <div className="h-2 w-1/3 bg-gray-100 rounded" />
-                   </div>
+
+                {/* Smaller Bento Blocks */}
+                <div className="bg-[#0A1628] rounded-2xl border border-slate-800/80 p-5 flex flex-col items-center justify-center text-center">
+                   <Globe className="w-8 h-8 text-indigo-400 mb-3" />
+                   <p className="text-white font-bold tracking-tight">50+ Jurisdictions</p>
+                   <p className="text-xs text-slate-500 mt-1">Global Coverage</p>
                 </div>
-                <div className="h-32 bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex gap-4">
-                   <div className="w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center">
-                     <FileText className="w-8 h-8 text-blue-600" />
-                   </div>
-                   <div className="flex flex-col gap-2 flex-grow justify-center">
-                     <div className="h-3 w-2/3 bg-gray-200 rounded" />
-                     <div className="h-2 w-1/2 bg-gray-100 rounded" />
-                   </div>
+                
+                <div className="bg-[#0A1628] rounded-2xl border border-slate-800/80 p-5 flex flex-col items-center justify-center text-center">
+                   <Activity className="w-8 h-8 text-emerald-400 mb-3" />
+                   <p className="text-white font-bold tracking-tight">$5B+ Capital</p>
+                   <p className="text-xs text-slate-500 mt-1">AUM Integrated</p>
                 </div>
+
               </div>
             </div>
           </motion.div>
