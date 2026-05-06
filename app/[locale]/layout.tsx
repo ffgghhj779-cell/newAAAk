@@ -10,9 +10,9 @@ import {MobileTabBar} from '@/components/layout/MobileTabBar';
 import {Toaster} from 'sonner';
 import {getOrganizationSchema, getFinancialServiceSchema, getWebSiteSchema} from '@/lib/schema';
 
-const inter = Inter({subsets: ['latin'], variable: '--font-inter'});
-const notoKufi = Noto_Kufi_Arabic({subsets: ['arabic'], variable: '--font-arabic', weight: ['300', '400', '500', '600', '700']});
-const playfair = Playfair_Display({subsets: ['latin'], variable: '--font-playfair'});
+const inter = Inter({subsets: ['latin'], variable: '--font-inter', display: 'swap'});
+const notoKufi = Noto_Kufi_Arabic({subsets: ['arabic'], variable: '--font-arabic', weight: ['300', '400', '500', '600', '700'], display: 'swap'});
+const playfair = Playfair_Display({subsets: ['latin'], variable: '--font-playfair', display: 'swap'});
 
 import {Metadata} from 'next';
 

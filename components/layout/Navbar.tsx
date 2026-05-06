@@ -75,6 +75,7 @@ export function Navbar({locale}: {locale: string}) {
                   src="/mylogo.png" 
                   alt="Sovereign Ma'arij Fund Logo" 
                   fill
+                  priority={true}
                   className="object-contain"
                 />
               </div>

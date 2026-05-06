@@ -2,12 +2,14 @@ import {setRequestLocale} from 'next-intl/server';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { TrustSection } from '@/components/sections/TrustSection';
 import { ServicesOverview } from '@/components/sections/ServicesOverview';
-import { HowItWorks } from '@/components/sections/HowItWorks';
-import { FeaturedVisas } from '@/components/sections/FeaturedVisas';
-import { CTASection } from '@/components/sections/CTASection';
+import dynamic from 'next/dynamic';
 import { getVisas } from '@/lib/api';
 import { getFAQSchema } from '@/lib/schema';
 import { Metadata } from 'next';
+
+const HowItWorks = dynamic(() => import('@/components/sections/HowItWorks').then(mod => mod.HowItWorks));
+const FeaturedVisas = dynamic(() => import('@/components/sections/FeaturedVisas').then(mod => mod.FeaturedVisas));
+const CTASection = dynamic(() => import('@/components/sections/CTASection').then(mod => mod.CTASection));
 
 const SITE_URL = 'https://www.almaarijsovereignwealthfund.com';
 
