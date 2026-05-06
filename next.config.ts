@@ -46,6 +46,61 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://vercel.live wss://ws-eu.pusher.com; frame-src 'self' https://vercel.live https://challenges.cloudflare.com; frame-ancestors 'none'",
+          },
+          {
+            // Explicitly override any wildcard CORS
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://www.almaarijsovereignwealthfund.com',
+          },
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          }
+        ],
+      },
+    ];
+  },
+  poweredByHeader: false,
 };
 
 export default withNextIntl(nextConfig);

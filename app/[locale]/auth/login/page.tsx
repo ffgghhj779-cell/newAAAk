@@ -8,10 +8,13 @@ import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import { Mail, Lock, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { validateTurnstileToken } from '@/app/actions/auth';
 
 export default function LoginPage({ params }: { params: Promise<{ locale: string }> }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
@@ -29,9 +32,31 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
     e.preventDefault();
     setIsLoading(true);
 
+    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+      if (!turnstileToken) {
+        toast.error(isAr ? 'يرجى التحقق من الكابتشا' : 'Please complete the captcha');
+        setIsLoading(false);
+        return;
+      }
+      const isValid = await validateTurnstileToken(turnstileToken);
+      if (!isValid) {
+        toast.error(isAr ? 'فشل التحقق من الكابتشا' : 'Captcha validation failed');
+        setIsLoading(false);
+        return;
+      }
+    }
+
     try {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
+
+      // Check if MFA is required
+      const { data: mfaData, error: mfaError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (!mfaError && mfaData?.currentLevel === 'aal1' && mfaData?.nextLevel === 'aal2') {
+        router.push('/auth/mfa');
+        return;
+      }
+
       toast.success(isAr ? 'تم تسجيل الدخول بنجاح' : 'Logged in successfully');
       router.refresh();
       router.push('/');
@@ -99,6 +124,16 @@ export default function LoginPage({ params }: { params: Promise<{ locale: string
               {t('forgot_password')}
             </Link>
           </div>
+
+          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
+            <div className="flex justify-center my-4">
+              <Turnstile 
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                onSuccess={(token) => setTurnstileToken(token)}
+                options={{ theme: 'light' }}
+              />
+            </div>
+          )}
 
           <Button
             type="submit"

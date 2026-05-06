@@ -8,12 +8,15 @@ import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import { Mail, Lock, User } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { validateTurnstileToken } from '@/app/actions/auth';
 
 export default function SignUpPage({ params }: { params: Promise<{ locale: string }> }) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
@@ -40,6 +43,20 @@ export default function SignUpPage({ params }: { params: Promise<{ locale: strin
     }
 
     setIsLoading(true);
+
+    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+      if (!turnstileToken) {
+        toast.error(isAr ? 'يرجى التحقق من الكابتشا' : 'Please complete the captcha');
+        setIsLoading(false);
+        return;
+      }
+      const isValid = await validateTurnstileToken(turnstileToken);
+      if (!isValid) {
+        toast.error(isAr ? 'فشل التحقق من الكابتشا' : 'Captcha validation failed');
+        setIsLoading(false);
+        return;
+      }
+    }
 
     try {
       const { error } = await supabase.auth.signUp({
@@ -150,6 +167,16 @@ export default function SignUpPage({ params }: { params: Promise<{ locale: strin
               />
             </div>
           </div>
+
+          {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
+            <div className="flex justify-center my-4">
+              <Turnstile 
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                onSuccess={(token) => setTurnstileToken(token)}
+                options={{ theme: 'light' }}
+              />
+            </div>
+          )}
 
           <Button
             type="submit"
