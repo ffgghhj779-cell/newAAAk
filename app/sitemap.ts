@@ -4,8 +4,14 @@ import { getVisas, getCategories } from '@/lib/api';
 const SITE_URL = 'https://www.almaarijsovereignwealthfund.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const visas = await getVisas();
-  const categories = await getCategories();
+  let visas: { slug: string }[] = [];
+  let categories: { slug: string }[] = [];
+
+  try {
+    [visas, categories] = await Promise.all([getVisas(), getCategories()]);
+  } catch {
+    // Supabase env vars may be missing during local build — return static pages only
+  }
 
   // Core static pages (both locales)
   const staticPages = [

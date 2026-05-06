@@ -11,7 +11,7 @@ const rateLimitMap = new Map<string, { count: number; startTime: number }>();
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const ip = request.ip || request.headers.get('x-forwarded-for') || '127.0.0.1';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || request.headers.get('x-real-ip') || '127.0.0.1';
 
   // 1. Admin IP Restriction
   if (pathname.includes('/admin')) {
@@ -108,7 +108,6 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const pathname = request.nextUrl.pathname
   const isAdminRoute = pathname.includes('/admin')
   const isAdminLoginRoute = pathname.includes('/admin/login')
 
